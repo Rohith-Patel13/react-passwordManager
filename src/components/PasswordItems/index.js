@@ -1,0 +1,36 @@
+import {Component} from 'react'
+
+import './index.css'
+
+class PasswordItems extends Component {
+  render() {
+    return (
+      <li className="liContainer">
+        <div className="passwordDetailsContainer">
+          <div className="roundFirstIcon">
+            <p>Y</p>
+          </div>
+          <div className="passwordDetails">
+            <p>youtube.com</p>
+            <p>rahul</p>
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png"
+              alt="stars"
+              className="starsImage"
+            />
+          </div>
+        </div>
+        <button type="button" className="deleteButton">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/password-manager-delete-img.png"
+            alt="delete"
+            data-testid="delete"
+            className="deleteImage"
+          />
+        </button>
+      </li>
+    )
+  }
+}
+
+export default PasswordItems
