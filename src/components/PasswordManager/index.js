@@ -1,10 +1,13 @@
 import {Component} from 'react'
 
-import InputContainerItems from '../InputContainerItems/index'
+import {v4 as uuidv4} from 'uuid'
+
+// import InputContainerItems from '../InputContainerItems/index'
 
 import PasswordItems from '../PasswordItems/index'
 
 import './index.css'
+/*
 
 const inputContainerItemsList = [
   {
@@ -33,19 +36,57 @@ const inputContainerItemsList = [
   },
 ]
 
+*/
+
 class PasswordManager extends Component {
   state = {
     passwordCount: 0,
+    websiteValue: '',
+    usernameValue: '',
+    passwordValue: '',
+    passwordDetailsArray: [],
   }
 
   addBtnClicked = () => {
+    const {websiteValue, usernameValue, passwordValue} = this.state
+    const newPasswordDetailsObject = {
+      id: uuidv4(),
+      websiteVal: websiteValue,
+      usernameVal: usernameValue,
+      passwordVal: passwordValue,
+    }
     this.setState(prevState => ({
       passwordCount: prevState.passwordCount + 1,
+      passwordDetailsArray: [
+        ...prevState.passwordDetailsArray,
+        newPasswordDetailsObject,
+      ],
+      websiteValue: '',
+      usernameValue: '',
+      passwordValue: '',
     }))
   }
 
+  websiteChanging = event => {
+    this.setState({websiteValue: event.target.value})
+  }
+
+  usernameChanging = event => {
+    this.setState({usernameValue: event.target.value})
+  }
+
+  passwordChanging = event => {
+    this.setState({passwordValue: event.target.value})
+  }
+
   render() {
-    const {passwordCount} = this.state
+    const {
+      passwordCount,
+      websiteValue,
+      usernameValue,
+      passwordValue,
+      passwordDetailsArray,
+    } = this.state
     return (
       <div className="bg">
         <img
@@ -61,12 +102,53 @@ class PasswordManager extends Component {
           />
           <form className="formContainer">
             <h1 className="inputContainerHeading">Add New Password</h1>
-            {inputContainerItemsList.map(eachObject => (
-              <InputContainerItems
-                eachObject={eachObject}
-                key={eachObject.id}
+            <div className="inputAreaContainer">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
+                alt="website"
+                className="imgIconStyle"
               />
-            ))}
+              <hr className="hrLine" />
+              <input
+                type="url"
+                placeholder="Enter Website"
+                className="inputStyling"
+                value={websiteValue}
+                onChange={this.websiteChanging}
+              />
+            </div>
+
+            <div className="inputAreaContainer">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/password-manager-username-img.png"
+                alt="username"
+                className="imgIconStyle"
+              />
+              <hr className="hrLine" />
+              <input
+                type="text"
+                placeholder="Enter Username"
+                className="inputStyling"
+                value={usernameValue}
+                onChange={this.usernameChanging}
+              />
+            </div>
+
+            <div className="inputAreaContainer">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
+                alt="password"
+                className="imgIconStyle"
+              />
+              <hr className="hrLine" />
+              <input
+                type="password"
+                placeholder="Enter Password"
+                className="inputStyling"
+                value={passwordValue}
+                onChange={this.passwordChanging}
+              />
+            </div>
             <button
               type="button"
               className="btnAddEl"
@@ -110,7 +192,9 @@ class PasswordManager extends Component {
             className="noPasswordImage"
           />
           <h1>No Passwords</h1>
-          <PasswordItems />
+          {passwordDetailsArray.map(eachObject => (
+            <PasswordItems eachObject={eachObject} key={eachObject.id} />
+          ))}
         </div>
       </div>
     )

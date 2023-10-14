@@ -4,6 +4,8 @@ import './index.css'
 
 class PasswordItems extends Component {
   render() {
+    const {eachObject} = this.props
+    const {websiteVal, usernameVal} = eachObject
     return (
       <li className="liContainer">
         <div className="passwordDetailsContainer">
@@ -11,8 +13,8 @@ class PasswordItems extends Component {
             <p>Y</p>
           </div>
           <div className="passwordDetails">
-            <p>youtube.com</p>
-            <p>rahul</p>
+            <p>{websiteVal}</p>
+            <p>{usernameVal}</p>
             <img
               src="https://assets.ccbp.in/frontend/react-js/password-manager-stars-img.png"
               alt="stars"
